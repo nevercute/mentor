@@ -27,7 +27,7 @@ public class HandleContactDeduplicationResultImpl implements HandleContactDedupl
                 new CorrelateMessageRequest(
                         DEDUPLICATION_RESULT,
                         command.orderId(),
-                        Map.of(VariableKey.DEDUPLICATION_RESULT, command.deduplicationResult())
+                        Map.of(VariableKey.DEDUPLICATION_RESULT, command.deduplicationResult().name())
                 )
         );
     }

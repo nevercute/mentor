@@ -27,7 +27,7 @@ public class HandleNewSignInvitationResultImpl implements HandleNewSignInvitatio
                 new CorrelateMessageRequest(
                         NEW_SIGN_INVITATION_RESULT,
                         command.orderId(),
-                        Map.of(INVITATION_RESULT, command.invitationResult())
+                        Map.of(INVITATION_RESULT, command.invitationResult().name())
                 )
         );
     }

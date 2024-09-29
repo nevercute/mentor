@@ -32,7 +32,7 @@
     <bpmn:serviceTask id="Activity_1g63fx4" name="Обновить статус зявки в БД ЕФ.Подтверждение МТ" camunda:type="external" camunda:topic="deduplication.order.update_status">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:outputParameter name="orderStatus">CANCELLED</camunda:outputParameter>
+          <camunda:inputParameter name="orderStatus">CANCELLED</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_00xmvw1</bpmn:incoming>
@@ -66,7 +66,7 @@
     <bpmn:serviceTask id="Activity_1ursh7n" name="Обновить статус зявки в БД ЕФ.Подтверждение МТ" camunda:type="external" camunda:topic="deduplication.order.update_status">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:outputParameter name="orderStatus">SUCCESS</camunda:outputParameter>
+          <camunda:inputParameter name="orderStatus">SUCCESS</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0w1i0c2</bpmn:incoming>

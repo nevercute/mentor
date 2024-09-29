@@ -34,6 +34,7 @@ public class HandleWorkerTaskImpl implements HandleWorkerTaskUseCase {
             case SIGN_ONLINE_ORDER_START -> efApprovalService.startMobileApproval(taskId, variables);
             case NOTIFICATION_SIGN_FINISHED ->
                     notificationService.sendContactSignCompleted(taskId, variables);
+            default -> log.error("Не добавлен обработчик external task для топика {}", command.taskTopic());
         }
     }
 }
