@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: remote-camunda-demo
+  profiles:
+    active: demo
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+feign:
+  client:
+    config:
+      default:
+        url: "http://localhost:8090/engine-rest/"
+
+adapter:
+  camunda:
+    query-task-limit: 1
+    ## ToDo обязательно переделать/добавить на instance_id (либо eureka, либо передается параметр из кубера)
+    worker-id: ${spring.application.name}
+    external-task-lock-time: PT5S
+    external-task-topics:
+      - SIGN_ONLINE_ORDER_SEND
+      - SIGN_ONLINE_ORDER_CANCEL
+      - DEDUPLICATION_ORDER_UPDATE_STATUS
+      - SIGN_ONLINE_ORDER_START
+      - NOTIFICATION_SIGN_START
+      - NOTIFICATION_SIGN_FINISHED
+  notification:
+    new-sign-template-id: some-sms-sign-template-id
+    contact-sign-completed-template-id: some-sms-sign-completed-template-id
+
+org.jobrunr:
+  background-job-server:
+    enabled: true
+    worker-count: 1
+    poll-interval-in-seconds: 5
+    delete-succeeded-jobs-after: 1
+    permanently-delete-deleted-jobs-after: 3
+  jobs:
+    default-number-of-retries: 2
+    retry-back-off-time-seed: 10
+  dashboard:
+    enabled: true
+
+scheduling:
+  camunda-worker:
+    cron: "*/5 * * * * *" # Every 5 seconds
+    expired-period: PT1M
