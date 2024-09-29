@@ -13,8 +13,6 @@ import pro.nevercute.mentor.remote_camunda_demo.domain.model.TaskTopic;
 
 import java.util.List;
 
-import static pro.nevercute.mentor.remote_camunda_demo.domain.model.ProcessDefinition.DEDUPLICATION_PROCESS;
-
 @RequiredArgsConstructor
 @Slf4j
 public class ScheduledWorkerAdapter {
@@ -32,7 +30,6 @@ public class ScheduledWorkerAdapter {
         long externalTaskLockTime = camundaClientProperties.getExternalTaskLockTime().toMillis();
         camundaClientProperties.getExternalTaskTopics()
                 .forEach(topic -> externalTaskQueryTopicBuilder.topic(topic.getTopicName(), externalTaskLockTime));
-        externalTaskQueryTopicBuilder.processDefinitionId(DEDUPLICATION_PROCESS);
 
         List<LockedExternalTask> tasks = externalTaskQueryTopicBuilder.execute();
         log.info("Количество найденных external tasks для выполнения: {}", tasks.size());
