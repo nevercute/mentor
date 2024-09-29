@@ -1,0 +1,49 @@
+###Старт процесса. Бизнес ключ инстанса процесса, это orderId
+
+# curl --location 'http://localhost:8080/start-deduplication-process'
+#--header 'Content-Type: application/json'
+#--data '{
+#    "clientId" : "clientId-c0b920ef-7d9d-11ef-8572-0242ac110002",
+#    "orderId" : "orderId-c0b920ef-7d9d-11ef-8572-0242ac110002"
+#}'
+POST http://localhost:8080/start-deduplication-process
+Content-Type: application/json
+
+{
+  "clientId": "clientId-c0b920ef-7d9d-11ef-8572-0242ac110002",
+  "orderId": "orderId-c0b920ef-7d9d-11ef-8572-0242ac110002"
+}
+
+###Имитация ивента, который подтверждает, что можно стартовать процесс дедупликации
+# curl --location 'http://localhost:8080/new-sign-invitation-result'
+#--header 'Content-Type: application/json'
+#--data '{
+#    "clientId" : "clientId-c0b920ef-7d9d-11ef-8572-0242ac110002",
+#    "orderId" : "orderId-c0b920ef-7d9d-11ef-8572-0242ac110002",
+#    "invitationResult" : "ACCEPTED"
+#}'
+POST http://localhost:8080/new-sign-invitation-result
+Content-Type: application/json
+
+{
+  "clientId": "clientId-c0b920ef-7d9d-11ef-8572-0242ac110002",
+  "orderId": "orderId-c0b920ef-7d9d-11ef-8572-0242ac110002",
+  "invitationResult": "ACCEPTED"
+}
+
+###Имитация ивента с резульататом дедупликации
+# curl --location 'http://localhost:8080/deduplication-result'
+#--header 'Content-Type: application/json'
+#--data '{
+#    "clientId" : "clientId-c0b920ef-7d9d-11ef-8572-0242ac110002",
+#    "orderId" : "orderId-c0b920ef-7d9d-11ef-8572-0242ac110002",
+#    "deduplicationResult" : "MERGED"
+#}'
+POST http://localhost:8080/deduplication-result
+Content-Type: application/json
+
+{
+  "clientId": "clientId-c0b920ef-7d9d-11ef-8572-0242ac110002",
+  "orderId": "orderId-c0b920ef-7d9d-11ef-8572-0242ac110002",
+  "deduplicationResult": "MERGED"
+}
